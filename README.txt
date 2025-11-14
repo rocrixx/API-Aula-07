@@ -41,7 +41,7 @@ Filtrar por tipo de resíduo
 GET http://localhost:3000/registros-descarte?tipoResiduo=vidro
 
 Filtrar por nome do usuário
-GET http://localhost:3000/registros-descarte?nomeUsuario=UsuarioTeste
+GET http://localhost:3000/registros-descarte?nomeUsuario=usuarioTeste
 
 Filtrar por ponto
 GET http://localhost:3000/registros-descarte?pontoId=1
