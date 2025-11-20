@@ -241,7 +241,7 @@ async function buscarHistorico(evento) {
     dados.forEach((registro) => {
       const linha = document.createElement("tr");
       const data = registro.data
-        ? new Date(registro.data).toLocaleDateString("pt-BR")
+        ? new Date(new Date(registro.data).getTime() + (new Date().getTimezoneOffset() * 60000)).toLocaleDateString("pt-BR")
         : "";
       const tipo = registro.tipoResiduo || "";
       const local =

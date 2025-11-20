@@ -8,6 +8,7 @@
 body {
   background: #f4f4f5;
   color: #122711;
+  overflow-x: hidden;
 }
 
 .topo {
@@ -30,19 +31,20 @@ body {
 
 .tabs {
   display: flex;
-  overflow-x: auto;
+  flex-wrap: wrap;
   background: #006045;
 }
 
 .tab-button {
-  flex: 1;
+  flex: 1 1 50%;
   padding: 10px;
   border: none;
   background: transparent;
   color: #e5e7eb;
   font-size: 0.9rem;
   cursor: pointer;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
 }
 
 .tab-button.active {
@@ -123,8 +125,8 @@ h2 {
 }
 
 .duas-colunas {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
@@ -167,8 +169,13 @@ h2 {
   margin-bottom: 16px;
 }
 
+#resultadoHistorico {
+  overflow-x: auto;
+}
+
 .tabela {
   width: 100%;
+  min-width: 420px;
   border-collapse: collapse;
   background: #ffffff;
   border-radius: 12px;
@@ -222,6 +229,21 @@ h2 {
 }
 
 @media (min-width: 640px) {
+  .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .tab-button {
+    flex: 1 1 auto;
+    white-space: nowrap;
+  }
+
+  .duas-colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
   .formulario {
     padding: 20px;
   }
