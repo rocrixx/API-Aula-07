@@ -10,7 +10,10 @@ async function bootstrap() {
     credentials: true,
   });
 
+  app.setGlobalPrefix('api');
+
   await app.listen(3000);
-  console.log('API rodando em http://localhost:3000');
+  console.log('Front-end em:     http://localhost:3000');
+  console.log('API disponível em http://localhost:3000/api');
 }
 bootstrap();
