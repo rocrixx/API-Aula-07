@@ -7,13 +7,13 @@
 
 body {
   background: #f4f4f5;
-  color: #111827;
+  color: #122711;
 }
 
 .topo {
   padding: 16px;
   text-align: center;
-  background: #111827;
+  background: #004f3b;
   color: #f9fafb;
 }
 
@@ -31,7 +31,7 @@ body {
 .tabs {
   display: flex;
   overflow-x: auto;
-  background: #1f2933;
+  background: #006045;
 }
 
 .tab-button {
@@ -39,7 +39,7 @@ body {
   padding: 10px;
   border: none;
   background: transparent;
-  color: #9ca3af;
+  color: #e5e7eb;
   font-size: 0.9rem;
   cursor: pointer;
   white-space: nowrap;
@@ -47,7 +47,7 @@ body {
 
 .tab-button.active {
   color: #f9fafb;
-  border-bottom: 2px solid #22c55e;
+  border-bottom: 4px solid #53eafd;
 }
 
 .conteudo {
