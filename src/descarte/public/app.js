@@ -1,5 +1,16 @@
 const API_URL = "/api";
 
+const mapaPontos = {};
+const TIPOS_RESIDUO_PADRAO = [
+  "plastico",
+  "papel",
+  "metal",
+  "vidro",
+  "bateria",
+  "organico",
+  "eletronico",
+];
+
 function selecionarAba(id) {
   const botoes = document.querySelectorAll(".tab-button");
   const abas = document.querySelectorAll(".tab-content");
@@ -20,12 +31,17 @@ async function carregarPontosDescarte() {
     const dados = await resposta.json();
     const selectPontoDescarte = document.getElementById("pontoDescarte");
     const selectFiltroPonto = document.getElementById("filtroPonto");
+
     selectPontoDescarte.innerHTML =
       '<option value="">Selecione um ponto</option>';
     selectFiltroPonto.innerHTML = '<option value="">Todos</option>';
+    Object.keys(mapaPontos).forEach((k) => delete mapaPontos[k]);
+
     dados.forEach((ponto) => {
       const id = ponto.id || ponto._id || ponto.pontoId || "";
       const nome = ponto.nomeLocal || ponto.nome || "Ponto " + id;
+
+      mapaPontos[id] = ponto; 
 
       const opcao1 = document.createElement("option");
       opcao1.value = id;
@@ -144,6 +160,30 @@ async function enviarDescarte(evento) {
     status.textContent = "Erro de comunicação com a API.";
     status.classList.add("erro");
   }
+}
+
+function atualizarTiposResiduoPorPonto() {
+  const selectPonto = document.getElementById("pontoDescarte");
+  const selectTipo = document.getElementById("tipoResiduo");
+  const pontoId = selectPonto.value;
+
+  selectTipo.innerHTML = '<option value="">Selecione</option>';
+
+  let tipos = TIPOS_RESIDUO_PADRAO;
+
+  if (pontoId && mapaPontos[pontoId]) {
+    const categorias = mapaPontos[pontoId].categoriasResiduosAceitos;
+    if (Array.isArray(categorias) && categorias.length > 0) {
+      tipos = categorias;
+    }
+  }
+
+  tipos.forEach((tipo) => {
+    const opt = document.createElement("option");
+    opt.value = tipo;
+    opt.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1);
+    selectTipo.appendChild(opt);
+  });
 }
 
 function montarQueryHistorico() {
@@ -304,13 +344,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
   const formPonto = document.getElementById("formPonto");
   const formDescarte = document.getElementById("formDescarte");
   const formHistorico = document.getElementById("formFiltroHistorico");
   const botaoRelatorio = document.getElementById("btnAtualizarRelatorio");
+  const selectPontoDescarte = document.getElementById("pontoDescarte");
+
   formPonto.addEventListener("submit", enviarPonto);
   formDescarte.addEventListener("submit", enviarDescarte);
   formHistorico.addEventListener("submit", buscarHistorico);
   botaoRelatorio.addEventListener("click", carregarRelatorio);
+  selectPontoDescarte.addEventListener("change", atualizarTiposResiduoPorPonto);
+
   carregarPontosDescarte();
 });

@@ -6,9 +6,11 @@ export type TipoLocal = 'publico' | 'privado';
 export type TipoResiduo =
   | 'plastico'
   | 'papel'
+  | 'metal'
+  | 'vidro'
+  | 'bateria'
   | 'organico'
   | 'eletronico'
-  | 'vidro'
   | string;
 
 export type PontoDescarteDocument = PontoDescarte & Document;
